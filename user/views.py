@@ -3,7 +3,6 @@ from user.forms import registrationForm,loginForm,createProfileForm,employerRegi
 from django.contrib.auth import authenticate,login,logout
 from user.forms import addJobForm
 from user.models import Profile,addJob
-
 # Create your views here.
 
 
@@ -33,7 +32,7 @@ def login_view(request):
             user=authenticate(request,username=username,password=password)
             if user:
                 login(request,user)
-            return render(request,"users/home.html")
+            return render(request,"users/userhome.html")
 
     return render(request,"users/login.html")
 
@@ -157,29 +156,49 @@ def add_job(request):
     return render(request,"users/addjob.html",context)
 
 def view_jobs(request):
-   job=addJob.objects.filter(user=request.user)
+   job=addJob.objects.all()
    context = {}
    context["job"] = job
-   return render(request, "users/applyjobs.html", context)
+   print(job)
+   return render(request, "users/applyjobs.html",context)
 
 def apply(request):
     return render(request, "users/sucesspage.html")
 
 def search(request):
-    search=addJob.objects.filter(job_title__icontains="developer")
-    context={}
-    context["search"]=search
-    return render(request, "users/searchjobs.html")
+    job=addJob.objects.filter(company_name="company_name")
+    if request.method == "POST":
+        form = addJobForm(data=request.POST)
+        if form.is_valid():
+            job=addJob.objects.filter(job_title="job_title")
+
+            context["sea"]=sea
+            form.save()
+            print(sea)
+            return redirect("searched")
+
+    return render(request, "users/searched.html",context)
 
 
-# def search_view(request):
-#     jobs = addJob.objects.all()
-#     form = addJobForm(request.GET)
-#     if form.is_valid():
-#         if form.cleaned_data["job_title"]:
-#             jobs = addJob.filter(name__icontains=form.cleaned_data["job_title"])
-#         elif form.cleaned_data["company_name"]:
-#             jobs = addJob.filter(company_name=form.cleaned_data["company_name"])
+def search_view(request):
+    form=addJobForm
+
+    context = {}
+    context["form"] =form
+    if request.method=="POST":
+
+        form=addJobForm(data=request.POST)
+        if form.is_valid():
+            # jobs = addJob.objects.all()
+            jobs = addJob.filter(company_name="company_name")
+
+            print(jobs)
+            form.save()
+            return redirect("searched")
+        else:
+            context["form"]=form
+            return render(request, "users/applyjobs.html",context)
+
+#     else:
+#         return render(request, "users/applyjobs.html", context)
 #
-#     return render(request, "users/searchjobs.html",
-#             {"form": form, "search_list": jobs})

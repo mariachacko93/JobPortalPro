@@ -1,55 +1,102 @@
+<!--    <!DOCTYPE html>-->
+<!--    <html lang="en">-->
+<!--    <head>-->
+<!--        <meta charset="UTF-8">-->
+<!--        <title>apply</title>-->
+<!--        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">-->
+
+<!--    <html lang="en">-->
+<!--    <head>-->
+<!--        <meta charset="UTF-8">-->
+<!--        <title>apply</title>-->
+<!--    &lt;!&ndash;    {%load static %}&ndash;&gt;-->
+<!--    </head>-->
+<!--    <body>-->
+    <!--<h2>Kochi jobs..</h2>-->
+    <!--<img src="{%static 'images/ap.jpg'%}">-->
+    <!--<table>-->
+
+    <!--<tr>-->
+    <!--    <th>user</th>-->
+    <!--    <th>company_name</th>-->
+    <!--    <th>job title</th>-->
+    <!--    <th>skills</th>-->
+    <!--    <th>experience</th>-->
+    <!--    <th>job details</th>-->
+    <!--    <th>phonenumber</th>-->
+    <!--    <th>email id</th>-->
+
+
+    <!--</tr>-->
+    <!--     <hr>-->
+    <!--      <tr>-->
+    <!-- {%for jo in job%}-->
+    <!--      <td>{{jo.user}}</td>-->
+    <!--      <td>{{jo.company_name}}</td>-->
+    <!--      <td>{{jo.job_title}}</td>-->
+    <!--      <td>{{jo.skills}}</td>-->
+    <!--      <td>{{jo.experience}}</td>-->
+    <!--      <td>{{jo.job_details}}</td>-->
+    <!--      <td>{{jo.phonenumber}}</td>-->
+    <!--      <td>{{jo.email_id}}</td>-->
+    <!--          <td><a href="{%url 'apply'%}">apply</a></td>-->
+
+    <!--  </tr>-->
+    <!--    {%endfor%}-->
+
+
+    <!--</table>-->
+    <!--<hr>-->
+    <!--<label><b>search</b></label>-->
+    <!--<input type="text" ><input type="submit">-->
+    <!--</body>-->
+    <!--<body>-->
+
+    <!--</body>-->
+    <!--</html>-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>apply</title>>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>apply</title>
+    <title>my recipes</title>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 <body>
-<h2>Kochi jobs..</h2>
+<h1><font color="blue">JOB LIST</font></h1>
+<div class="container">
 
-<table>
-
-<tr>
-    <th>user</th>
-    <th>company_name</th>
-    <th>job title</th>
-    <th>skills</th>
-    <th>experience</th>
-    <th>job details</th>
-    <th>phonenumber</th>
-    <th>email id</th>
+    <div class="row">
+<div class="col-4">
+        <label><b>search</b></label>
+            <input type="text" ><input type="submit"></div>
+        <div class="col-3">
 
 
-</tr>
-     <hr>
-      <tr>
- {%for j in job%}
-      <td>{{j.user}}</td>
-      <td>{{j.company_name}}</td>
-      <td>{{j.job_title}}</td>
-      <td>{{j.skills}}</td>
-      <td>{{j.experience}}</td>
-      <td>{{j.job_details}}</td>
-      <td>{{j.phonenumber}}</td>
-      <td>{{j.email_id}}</td>
-          <td><a href="{%url 'apply'%}">apply</a></td>
+        {%for jo in job%}
+        <div class="col-8">
+<!--    card start-->
+
+            <div class="card" style="width: 18rem;">
+  <div class="card-body">
+      <h5 class="card-title"><u>Company name:{{jo.company_name}}</u></h5>
+      <h6 class="card-title">Job Title:{{jo.job_title}}</h6>
+      <h6 class="card-title">Skills:{{jo.skills}}</h6>
+      <h6 class="card-title">work Experience:{{jo.experience}}</h6>
+      <h6 class="card-title">Job details:{{jo.job_details}}</h6>
+      <h6 class="card-title">Phonenumber:{{jo.phonenumber}}</h6>
+      <h6 class="card-title">email id:{{jo.email_id}}</h6>
+    <p class="card-text"></p>
+    <a href="{%url 'apply'%}" class="btn btn-primary">Apply Job</a>
+  </div>
+<!--                end card-->
+                {%endfor%}
+</div>
+
+        </div>
 
 
-
-  </tr>
-    {%endfor%}
-
-
-</table>
-<hr>
-<label><b>search</b></label>
-<input type="text" ><input type="submit">
-</body>
-<body>
-
+ </div>
+         </div>
 </body>
 </html>

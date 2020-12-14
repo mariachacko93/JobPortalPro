@@ -33,5 +33,5 @@ urlpatterns = [
     path("addjob/",add_job,name="addjob"),
     path("applyjobs/",view_jobs,name="applyjobs"),
     path("apply",apply,name="apply"),
-    # path("searchjobs/",search,name="search"),
+    path("searchjobs/",search,name="search"),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
