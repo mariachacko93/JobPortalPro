@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>apply</title>>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>apply</title>
+</head>
+<body>
+<h2>Kochi jobs..</h2>
+
+<table>
+
+<tr>
+    <th>user</th>
+    <th>company_name</th>
+    <th>job title</th>
+    <th>skills</th>
+    <th>experience</th>
+    <th>job details</th>
+    <th>phonenumber</th>
+    <th>email id</th>
+
+
+</tr>
+     <hr>
+      <tr>
+ {%for j in job%}
+      <td>{{j.user}}</td>
+      <td>{{j.company_name}}</td>
+      <td>{{j.job_title}}</td>
+      <td>{{j.skills}}</td>
+      <td>{{j.experience}}</td>
+      <td>{{j.job_details}}</td>
+      <td>{{j.phonenumber}}</td>
+      <td>{{j.email_id}}</td>
+          <td><a href="{%url 'apply'%}">apply</a></td>
+
+
+
+  </tr>
+    {%endfor%}
+
+
+</table>
+<hr>
+<label><b>search</b></label>
+<input type="text" ><input type="submit">
+</body>
+<body>
+
+</body>
+</html>
