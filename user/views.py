@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
 from user.forms import registrationForm,loginForm,createProfileForm,employerRegisterForm
 from django.contrib.auth import authenticate,login,logout
-from user.forms import addJobForm
+from user.forms import addJobForm,searchForm
 from user.models import Profile,addJob
+from django.core.paginator import Paginator
 # Create your views here.
 
 
@@ -165,40 +166,103 @@ def view_jobs(request):
 def apply(request):
     return render(request, "users/sucesspage.html")
 
-def search(request):
-    job=addJob.objects.filter(company_name="company_name")
-    if request.method == "POST":
-        form = addJobForm(data=request.POST)
-        if form.is_valid():
-            job=addJob.objects.filter(job_title="job_title")
-
-            context["sea"]=sea
-            form.save()
-            print(sea)
-            return redirect("searched")
-
-    return render(request, "users/searched.html",context)
 
 
-def search_view(request):
-    form=addJobForm
+def searchpage(request):
+    return render(request, "users/serjob.html")
 
-    context = {}
-    context["form"] =form
-    if request.method=="POST":
-
-        form=addJobForm(data=request.POST)
-        if form.is_valid():
-            # jobs = addJob.objects.all()
-            jobs = addJob.filter(company_name="company_name")
-
-            print(jobs)
-            form.save()
-            return redirect("searched")
-        else:
-            context["form"]=form
-            return render(request, "users/applyjobs.html",context)
-
-#     else:
-#         return render(request, "users/applyjobs.html", context)
+# def search(request):
+#     form=searchForm()
+#     context={}
+#     context["form"]=form
 #
+#     if request.method=="POST":
+#         form=loginForm(request.POST)
+#         if form.is_valid():
+#               jobsearch=addJob.objects.all()
+#               context["jobsearch"]=jobsearch
+#     #         company_name=form.cleaned_data.get("company_name")
+#     #         job_title=form.cleaned_data.get("job_title")
+#     #         skills=form.cleaned_data.get("skills")
+#     #         experience=form.cleaned_data.get("experience")
+#     #         searchjob=authenticate(request,company_name=company_name,job_title=job_title,skills=skills,experience=experience)
+#     #         if searchjob:
+#     #             # sear=addJob.objects.filter(company_name="company_name")
+#     #             # print(sear)
+#     #             print(company_name,job_title,skills)
+#               return redirect("search")
+#         else:
+#                 context["form"]=form
+#                 return render(request, "users/home.html", context)
+#
+#     return render(request,"users/serjob.html",context)
+
+
+# def job_search(request):
+#     query = request.GET.get('p')
+#     object_list = []
+#     if(query == None):
+#         jobs = addJob.objects.all()
+#         context={}
+#         context["jobs"]=jobs
+#     else:
+#
+#         company_name = addJob.objects.filter(
+#             company_name__icontains=query).order_by()
+#         job_title = addJob.objects.filter(
+#             job_title__icontains=query).order_by()
+#         skills= addJob.objects.filter(
+#             skills__icontains=query).order_by()
+#         # job_type_list = addJob.objects.filter(
+#         #     job_type__icontains=query).order_by('-date_posted')
+#         for i in company_name:
+#             object_list.append(i)
+#         for i in job_title:
+#             if i not in object_list:
+#                 object_list.append(i)
+#         for i in skills:
+#             if i not in object_list:
+#                 object_list.append(i)
+#         # for i in job_type_list:
+#         #     if i not in object_list:
+#         #         object_list.append(i)
+#     # if(loc == None):
+#     #     locat = addJob.objects.all()
+#     # # else:
+#         # locat = addJob.objects.filter(
+#         #     location__icontains=loc).order_by('-date_posted')
+#     final_list = []
+#     # for i in object_list:
+#     #     if i in locat:
+#     #         final_list.append(i)
+#     paginator = Paginator(final_list, 20)
+#     page_number = request.GET.get('page')
+#     page_obj = paginator.get_page(page_number)
+#     context = {
+#         'addJob': page_obj,
+#         'query': query,
+#     }
+#     return render(request,"users/serjob.html", context)
+
+# from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
+# from django.views.generic import ListView
+# from django.http import HttpResponse
+def job_search(request):
+        if request.method == 'GET':
+            query = request.GET.get('q')
+
+            submitbutton = request.GET.get('submit')
+
+            if query is not None:
+                lookups = Q(company_name__icontains=query) | Q(experience__icontains=query) | Q(job_title=query)
+
+                results = addJob.objects.filter(lookups).distinct()
+
+                context = {'results': results,
+                           'submitbutton': submitbutton}
+
+                return render(request, 'users/serjob.html', context)
+
+            else:
+                return render(request, 'users/serjob.html')

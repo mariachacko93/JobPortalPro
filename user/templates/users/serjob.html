@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+
+
+
+</form>
+<form class="" method="get" action="{% url 'jobsearch'%}">
+    <input name="q" id="id_q" type="text" class="form-control" placeholder="Search" />
+    <button type="submit">Search</button>
+</form>
+
+
+
+{%if results %}
+<h1>Result for<b> {{request.GET.q}}</b></h1>
+<br/><br/>
+
+{%for result in results%}
+<!--<b><u>{{result.company_name}}</u></b>-->
+<!--<br/>-->
+<!--{{result.job_title}}-->
+<!--<br/>-->
+<!--{{result.experience}}-->
+<!--<br/>-->
+<!--{{result.job_details}}-->
+<!--<br/>-->
+
+
+            <div class="card" style="width: 18rem;">
+  <div class="card-body">
+      <h4 class="card-title"><u>Company name:{{result.company_name}}</u></h4>
+      <h5 class="card-title">Job Title:{{result.job_title}}</h5>
+      <h5 class="card-title">Skills:{{jo.skills}}</h5>
+      <h5 class="card-title">work Experience:{{result.experience}}</h5>
+      <h5 class="card-title">Job details:{{result.job_details}}</h5>
+      <h5 class="card-title">Phonenumber:{{result.phonenumber}}</h5>
+      <h5 class="card-title">email id:{{result.email_id}}</h5>
+    <p class="card-text"></p>
+       <a href="{%url 'apply'%}" class="btn btn-primary">Apply Job</a>
+  </div>
+                <hr>
+{%endfor%}
+{%else%}
+    no search results
+{%endif%}
+
+</body>
+</html>

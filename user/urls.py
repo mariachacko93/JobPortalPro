@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from user.views import register,login_view,logout_view,profile_create,home,view_profile,edit_profile,employerLogin,employerRegister
-from user.views import add_job,view_jobs,apply,search
+from user.views import add_job,view_jobs,apply,job_search
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -33,5 +33,5 @@ urlpatterns = [
     path("addjob/",add_job,name="addjob"),
     path("applyjobs/",view_jobs,name="applyjobs"),
     path("apply",apply,name="apply"),
-    path("searchjobs/",search,name="search"),
+    path('searchjob/',job_search, name="jobsearch"),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
