@@ -13,7 +13,7 @@ class login(models.Model):
 
 class Profile(models.Model):
     user=models.CharField(max_length=120)
-    date_of_birth=models.DateField()
+    date_of_birth=models.DateField(blank= True,null=True)
     sex = models.CharField(max_length=15, default='')
     qualification=models.TextField(max_length=500)
     job_experience=models.TextField(max_length=500)
