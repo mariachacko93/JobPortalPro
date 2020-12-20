@@ -1,54 +1,102 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>login</title>
+    <title>search</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
 </head>
+<h3>Search Job here..</h3>
 <body>
 
+<div class="container">
 
-
-</form>
 <form class="" method="get" action="{% url 'jobsearch'%}">
     <input name="q" id="id_q" type="text" class="form-control" placeholder="Search" />
     <button type="submit">Search</button>
+
 </form>
-
-
-
 {%if results %}
 <h1>Result for<b> {{request.GET.q}}</b></h1>
-<br/><br/>
 
-{%for result in results%}
-<!--<b><u>{{result.company_name}}</u></b>-->
-<!--<br/>-->
-<!--{{result.job_title}}-->
-<!--<br/>-->
-<!--{{result.experience}}-->
-<!--<br/>-->
-<!--{{result.job_details}}-->
-<!--<br/>-->
+{% for result in results %}
 
+<!--{%csrf_token%}-->
 
-            <div class="card" style="width: 18rem;">
-  <div class="card-body">
-      <h4 class="card-title"><u>Company name:{{result.company_name}}</u></h4>
-      <h5 class="card-title">Job Title:{{result.job_title}}</h5>
-      <h5 class="card-title">Skills:{{jo.skills}}</h5>
-      <h5 class="card-title">work Experience:{{result.experience}}</h5>
-      <h5 class="card-title">Job details:{{result.job_details}}</h5>
-      <h5 class="card-title">Phonenumber:{{result.phonenumber}}</h5>
-      <h5 class="card-title">email id:{{result.email_id}}</h5>
-    <p class="card-text"></p>
-       <a href="{%url 'apply'%}" class="btn btn-primary">Apply Job</a>
-  </div>
-                <hr>
+<table class="table table-bordered">
+
+      <tr>
+      <th>company name</th>
+      <th>job title</th>
+      <th>skills</th>
+        <th>experience</th>
+      <th>job details</th>
+      <th>phonenumber</th>
+         <th>Email Id</th>
+      <th>location</th>
+      <th>date posted</th>
+
+    </tr>
+<!--<table>-->
+      <tr>
+          <td>{{result.company_name}}</td>
+          <td>{{result.job_title}}</td>
+          <td>{{result.skills}}</td>
+          <td>{{result.experience}}</td>
+          <td>{{result.job_details}}</td>
+          <td>{{result.phonenumber}}</td>
+          <td>{{result.email_id}}</td>
+          <td>{{result.locatns}}</td>
+          <td>{{result.dateposted}}</td>
+          <th><a href="{%url 'apply'%}" class="btn btn-primary">Apply Job</a></th>
+      </tr>
+</table>
 {%endfor%}
-{%else%}
+
+
+
+    {%else%}
     no search results
+
 {%endif%}
 
+
+ </div>
+
 </body>
+
 </html>
+
+<!--pagination-->
+
+      {% if results.has_other_pages %}
+<h2>
+
+
+  <ul class="pagination">
+
+    {% if results.has_previous %}
+      <li><a href="?page={{ results.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in results.paginator.page_range %}
+      {% if results.number == i %}
+        <li class="active" ><span>{{ i }} <span class="sr-only"></span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if results.has_next %}
+      <li><a href="?page={{ results.next_page_number }}">&raquo;</a></li>
+
+
+    {% else %}
+      <li class=""><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+    </h2>
+
+{% endif %}
+
+<!--    pagination ends here-->

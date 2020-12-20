@@ -37,7 +37,7 @@ class addJobForm(ModelForm):
 
     class Meta:
         model = addJob
-        fields =["user","company_name","job_title","skills","experience","job_details","phonenumber","email_id",]
+        fields =["user","company_name","job_title","skills","experience","job_details","phonenumber","email_id","locatns","dateposted"]
 
 class searchForm(ModelForm):
     class Meta:

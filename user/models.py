@@ -35,15 +35,18 @@ class employerProfile(models.Model):
     def __str__(self):
         return self.company_name
 
+from datetime import date
 class addJob(models.Model):
-    user = models.CharField(max_length=120,default='')
+    user = models.CharField(max_length=120)
     company_name = models.CharField(max_length=120)
-    job_title= models.CharField(max_length=120,default='')
-    skills= models.CharField(max_length=120,default='')
-    experience= models.CharField(max_length=120,default='')
+    job_title= models.CharField(max_length=120)
+    skills= models.CharField(max_length=120)
+    experience= models.CharField(max_length=120)
     job_details = models.TextField(max_length=250)
     phonenumber = models.CharField(max_length=20)
     email_id = models.EmailField(max_length=50)
+    locatns=models.CharField(max_length=120,default='')
+    dateposted=models.DateTimeField(default=date.today())
 
 
     def __str__(self):
